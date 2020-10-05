@@ -1,6 +1,8 @@
 Sets
 ====
 
+*10/5/2020 -*
+
 **Set**: A collection of distinguishable objects, with unordered, non-repeating elements
 
 Two sets are equal if their elements are equal
@@ -34,3 +36,27 @@ Demorgan's Laws:
 
 - :math:`\overline{A \cap B} = \bar{A} \cup \bar{B}`
 - :math:`\overline{A \cup B} = \bar{A} \cap \bar{B}`
+
+Definition:
+
+- :math:`\{ x \in N | \frac{x}{2} \in N \}` - even number definition by restricted comprehension
+- :math:`\{ x | P(x) \}` - unrestricted comprehension
+
+Russel's Paradox
+----------------
+
+**Extraordinary Sets**: All sets that include themselves as an element (ex. the set of everything that is not a teacup)
+
+**Ordinary Sets**: All sets that don't have themselves as a member
+
+Paradox: Does the set of all ordinary sets contain itself?
+
+This is a paradox - which means that the set of all sets cannot exist
+
+Relations
+---------
+
+Ex. :math:`<` - the set of all ordered pairs :math:`(a, b)` s.t. :math:`a < b`
+
+- Cartesian product of 2 sets A, B: :math:`\{ (a, b) | a \in A \land b \in B \}`
+    - e.g. :math:`\{c, d\} \times \{1, 2, 3\} = \{(c, 1), (c, 2), (c, 3), (d, 1), (d, 2), (d, 3)\}`
