@@ -42,6 +42,8 @@ Definition:
 - :math:`\{ x \in N | \frac{x}{2} \in N \}` - even number definition by restricted comprehension
 - :math:`\{ x | P(x) \}` - unrestricted comprehension
 
+**Power Set**: The set of all of a set's subsets
+
 Russel's Paradox
 ----------------
 
@@ -128,3 +130,97 @@ You can use digraphs to represent relations:
 - Reflexive: every vertex has a self-loop
 - Symmetric: all arrows must be bi-directional
 - Transitive: the "jump" edge must exist (bottom of drawing)
+
+Strings
+-------
+
+**Alphabet**: Any finite set (usually notated :math:`\Sigma`)
+
+A string over :math:`\Sigma` is a finite length sequence of elements from :math:`\Sigma`
+
+The *length* of a string x :math:`|x|` is the number of symbols in x
+
+An *empty string* is a unique string of length 0, notated :math:`\epsilon`
+
+A symbol with an exponent (e.g. :math:`a^x`) is repeated that many times
+
+.. note::
+    :math:`a^0 = \epsilon` and :math:`a^{m+1}=a^m a`
+
+:math:`\Sigma^*` is the *set of all strings* over the alphabet :math:`\Sigma`
+
+.. note::
+    :math:`\emptyset^* = \{\epsilon\}`
+
+Propositional Logic
+-------------------
+
+A *proposition* is a statement that is true or false.
+
+**Connectives**
+
+- not: :math:`\lnot`
+- and: :math:`\land`
+- or: :math:`\lor`
+- implies: :math:`\implies`
+- iff: :math:`\iff`
+
+**Constants**
+
+- 0, 1 (false, true)
+
+**Variables**
+
+- :math:`X = \{P, Q, R, ...\}`
+
+Series of propositions/operations can be modeled using *truth tables* (which I am not going to write here, because
+tables in RST suck)
+
+**Tautology**: A proposition that is true in any given state of the universe
+
+**Contradiction**: A proposition that is false in any given state of the universe
+
+**Valid Argument**: The conjunction of all givens and the negation of the output is false in all states.
+
+e.g. given the argument:
+
+.. code-block:: text
+
+    P -> Q
+    P
+    ---
+    Q
+
+:math:`(P \implies Q) \land P \land (\lnot Q)` is always false.
+
+Useful Tautologies
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    P -> Q      P -> Q      P -> Q      P or Q
+    P           not Q       Q -> R      not P
+    ---         ---         ---         ---
+    Q           not P       P -> R      Q
+
+                            P
+    P           P and Q     Q
+    ---         ---         ---
+    P or Q      Q           P and Q
+
+Cardinality
+-----------
+
+For finite sets, the *cardinality* of a set is the number of elements in the set.
+
+Denoted, given a set A, :math:`|A|`. :math:`|\emptyset| = 0`
+
+For infinite sets:
+
+- countably infinite: all elements in the set can be put in a 1-to-1 correspondence with natural numbers
+    - e.g. natural numbers (:math:`f(m) = m`)
+    - even integers (:math:`f(m) = 2m`)
+    - integers (:math:`f(m) = (-1)^m \lfloor \frac{m}{2} \rfloor`)
+    - strings over the alphabet :math:`\{0, 1\}`
+- uncountably infinite
+    - e.g. real numbers
