@@ -1,7 +1,7 @@
 Sets
 ====
 
-*10/5/2020 -*
+*10/5/2020 - 10/12/2020*
 
 **Set**: A collection of distinguishable objects, with unordered, non-repeating elements
 
@@ -217,10 +217,24 @@ Denoted, given a set A, :math:`|A|`. :math:`|\emptyset| = 0`
 
 For infinite sets:
 
-- countably infinite: all elements in the set can be put in a 1-to-1 correspondence with natural numbers
+- countably infinite: all elements in the set can be put in a 1-to-1 correspondence with natural numbers, or a list of the elements can be generated
     - e.g. natural numbers (:math:`f(m) = m`)
     - even integers (:math:`f(m) = 2m`)
     - integers (:math:`f(m) = (-1)^m \lfloor \frac{m}{2} \rfloor`)
     - strings over the alphabet :math:`\{0, 1\}`
+    - rational numbers (map :math:`N \times N` onto :math:`\frac{p}{q}` by making a list)
+    - the union of any two countable sets
 - uncountably infinite
-    - e.g. real numbers
+    - e.g. real numbers (diagonalization)
+
+.. note::
+
+    Let's go back and look at :math:`\Sigma^*` - all strings over an alphabet.
+
+    - :math:`\Sigma^*` is countably infinite, but
+    - :math:`P(\Sigma^*)` is not!
+
+    You can use diagonalization to prove that :math:`P(\Sigma^*)` is uncountably infinite using the same binary
+    argument as real numbers - use 1 to indicate an element's presence in the subset, and 0 to indicate its not
+
+
