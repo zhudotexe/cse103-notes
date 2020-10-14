@@ -45,3 +45,35 @@ Contrapositive
 Rather than proving :math:`p \implies q`, prove :math:`\lnot q \implies \lnot p`.
 
 Ex. :math:`p^2 \text{ is even} \implies p \text{ is even}`
+
+Contradiction
+-------------
+
+Prove that the opposite statement causes a contradiction.
+
+Ex. Prove that :math:`\sqrt{2}` is irrational.
+
+1. Assume that :math:`\sqrt{2} = \frac{p}{q}, p, q \in N` with no common factor
+2. :math:`p^2 = 2q^2`
+3. :math:`p^2` is even
+4. :math:`p` is even
+5. :math:`p = 2k`
+6. :math:`\sqrt{2} = \frac{2k}{q}`
+7. :math:`q^2 = \frac{(2k)^2}{2} = 2k^2`
+8. :math:`q^2` is even
+9. :math:`q` is even
+10. :math:`2 | p` and :math:`2 | q`, so by contradiction :math:`\sqrt{2}` is not rational.
+
+Pidgeonhole Principle
+---------------------
+
+Given *n* containers and *m* items, if m > n, at least one container must have more than one item in it.
+
+Ex. For any *m*, there exists a multiple of *m* that is a sequence of 1s followed by a sequence of 0s in binary.
+
+- For some m, consider the sequence ``1 11 111 ... 111...11`` where the last item is of length m+1
+- if you divide by m, there are only *m* remainders possible: [0..m-1]
+- There are m+1 items in the sequence but only m possible remainders, so two items in the sequence will have the same remainder
+- Let :math:`a = k_1m + r, b=k_2m+r, a > b`
+- :math:`\therefore a-b = (k_1-k_2)m`
+- :math:`a-b` is a multiple of *m* and of form ``111...00``

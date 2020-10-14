@@ -224,8 +224,10 @@ For infinite sets:
     - strings over the alphabet :math:`\{0, 1\}`
     - rational numbers (map :math:`N \times N` onto :math:`\frac{p}{q}` by making a list)
     - the union of any two countable sets
+    - strings over any finite alphabet
 - uncountably infinite
     - e.g. real numbers (diagonalization)
+    - set of all languages
 
 .. note::
 
@@ -237,4 +239,5 @@ For infinite sets:
     You can use diagonalization to prove that :math:`P(\Sigma^*)` is uncountably infinite using the same binary
     argument as real numbers - use 1 to indicate an element's presence in the subset, and 0 to indicate its not
 
+    In general, the power set of any set has greater cardinality than that set.
 
