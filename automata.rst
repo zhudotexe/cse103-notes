@@ -1,5 +1,8 @@
+Automata
+========
+
 DFA
-===
+---
 
 Deterministic Finite Automaton (DFA) is a structure:
 
@@ -124,3 +127,51 @@ Strings of length multiple of 3.
 
 .. image:: _static/dfa10.png
     :width: 350
+
+Intersection
+------------
+*aka Product Construction*
+
+**Thm**: If languages A and B are regular, then :math:`A \cap B` is regular.
+
+- there exists :math:`M_1 = (Q_1, \Sigma, \delta_1, s_1, F_1)` with :math:`L(M_1) = A`
+- there exists :math:`M_2 = (Q_2, \Sigma, \delta_2, s_2, F_2)` with :math:`L(M_2) = B`
+- since A and B are regular, we can build a DFA :math:`M_3` s.t. :math:`L(M_3) = A \cap B`.
+- let :math:`M_3 = (Q_3, \Sigma, \delta_3, s_3, F_3)`
+- :math:`Q_3 = Q_1 \times Q_2 = \{(p, q) | p \in Q_1, q \in Q_2 \}`
+- :math:`F_3 = F_1 \times F_2 = \{(p, q) | p \in F_1, q \in F_2 \}`
+- :math:`s_3 = (s_1, s_2)`
+- :math:`\delta_3: Q_3 \times \Sigma \to Q_3`
+    - :math:`\delta_3((p, q), a) = (\delta_1(p, a), \delta_2(q, a))`
+- extended transition function:
+    - :math:`\hat{\delta_3}((p, q), \epsilon) = (p, q)`
+    - :math:`\hat{\delta_3}((p, q), xa) = \delta_3(\hat{\delta_3}((p, q), x), a)`
+
+**Pf**: :math:`L(M_3) = L(M_1) \cap L(M_2)`
+
+.. image:: _static/dfa11.png
+    :width: 500
+
+**Ex**: Given two machines that accept an even number of 0s and odd number of 1s, the intersection can be constructed
+as such:
+
+.. image:: _static/dfa12.png
+    :width: 500
+
+**Ex**: Even number of 1s and form :math:`01^m0`
+
+Note that there is no way into :math:`(p_1, q_0)`.
+
+.. image:: _static/dfa13.png
+    :width: 500
+
+Union
+-----
+
+**Thm**: If languages A and B are regular, then :math:`A \cup B` is regular.
+
+- A is regular :math:`\implies \lnot A` is regular
+- B is regular :math:`\implies \lnot B` is regular
+- :math:`\lnot A \text{ and } \lnot B` regular :math:`\implies \lnot A \cap \lnot B` regular
+- :math:`\lnot A \cap \lnot B` regular implies :math:`\lnot (\lnot A \cap \lnot B)` regular
+- :math:`\lnot (\lnot A \cap \lnot B)` regular implies :math:`A \cup B` regular (demorgans).
