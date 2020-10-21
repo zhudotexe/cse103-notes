@@ -13,7 +13,8 @@ Welcome to cse103-notes's documentation!
    intro
    sets
    proofs
-   automata
+   dfa
+   nfa
 
 
 

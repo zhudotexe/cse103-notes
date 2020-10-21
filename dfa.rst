@@ -1,8 +1,5 @@
-Automata
-========
-
 DFA
----
+========
 
 Deterministic Finite Automaton (DFA) is a structure:
 
