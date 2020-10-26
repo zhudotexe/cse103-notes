@@ -15,7 +15,7 @@ Welcome to cse103-notes's documentation!
    proofs
    dfa
    nfa
-
+   regex
 
 
 Indices and tables
