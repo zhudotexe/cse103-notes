@@ -16,6 +16,7 @@ Welcome to cse103-notes's documentation!
    dfa
    nfa
    regex
+   pumpinglemma
 
 
 Indices and tables

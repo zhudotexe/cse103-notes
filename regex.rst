@@ -106,3 +106,42 @@ Now we can define L(M) as the union of all ways to get from :math:`q_0` to an ac
 
 .. image:: _static/regex11.png
     :width: 500
+
+(Above: let's call this regex for :math:`L_{ij}^k` :math:`r_{ij}^k`)
+
+The induction:
+
+- base case. Since k = 0, this means only direct transitions:
+
+.. image:: _static/regex12.png
+    :width: 800
+
+.. image:: _static/regex13.png
+    :width: 800
+
+this produces two cases: if the path does not encounter k, or if it does:
+
+.. image:: _static/regex14.png
+    :width: 800
+
+And if it does, it must have a first time it enters *k* and the last time it exits *k*, and anything in between
+must be *k* to *k*, where all intermediate nodes are < k:
+
+.. image:: _static/regex15.png
+    :width: 800
+
+.. image:: _static/regex16.png
+    :width: 800
+
+Now, we can expand this regex to:
+
+:math:`\sum_{q_j \in F} r^k_{0j}`.
+
+Example
+^^^^^^^
+(left axis: i, j; top axis: k)
+
+.. image:: _static/regex17.png
+    :width: 500
+
+See published notes for full work.
