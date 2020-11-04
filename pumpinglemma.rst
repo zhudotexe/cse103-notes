@@ -178,3 +178,19 @@ Ex 10
     - impossible because left is divisible by :math:`p+1` and right side leaves remainder of 1.
     - therefore :math:`p!(1+m(p+1))` is not a factorial, so :math:`xy^iz \notin L`.
 
+Ex 11
+^^^^^
+:math:`L = \{ 1^n | n \text{ is prime} \}`
+
+- :math:`p`
+- :math:`s = 1^{p'}` where :math:`p'` is a prime larger than *p*
+- :math:`xyz = s` s.t. :math:`|xy| \leq p, |y| > 1`
+    - let :math:`x = 1^a, a \geq 0`
+    - let :math:`y = 1^b, b > 0`
+    - let :math:`z = 1^c, c \geq 0`
+    - where :math:`a+b+c = p'`
+    - so the claim is :math:`a + ib + c` is a prime for all i
+- let :math:`i = a + 2b + c + 2`
+    - then :math:`a + ib + c = (b+1)(a+2b+c)`
+    - this is a factor of two numbers, and so not a prime
+    - therefore :math:`xy^iz \notin L`.

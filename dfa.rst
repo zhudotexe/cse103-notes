@@ -172,3 +172,39 @@ Union
 - :math:`\lnot A \text{ and } \lnot B` regular :math:`\implies \lnot A \cap \lnot B` regular
 - :math:`\lnot A \cap \lnot B` regular implies :math:`\lnot (\lnot A \cap \lnot B)` regular
 - :math:`\lnot (\lnot A \cap \lnot B)` regular implies :math:`A \cup B` regular (demorgans).
+
+Minimizing a DFA
+----------------
+Given a DFA:
+
+1. Remove inaccessible states
+2. Collapse equivalent areas
+
+E.g.:
+
+.. image:: _static/dfa14.png
+    :width: 500
+
+.. image:: _static/dfa15.png
+    :width: 500
+
+.. image:: _static/dfa16.png
+    :width: 500
+
+Identifying Equivalent States
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Do this by identifying all states that cannot be equivalent: two states cannot be equivalent if processing
+the same some string at each state brings you to a different acceptance value
+
+.. image:: _static/dfa17.png
+    :width: 500
+
+Formally, :math:`p \approx q \text{ iff } \forall x \in \Sigma^* (\hat{\delta}(p, x) \in F \iff \hat{\delta}(q, x) \in F)`
+
+.. image:: _static/dfa18.png
+    :width: 500
+
+You can use these equivalence classes to make a quotient automaton:
+
+.. image:: _static/dfa19.png
+    :width: 500
