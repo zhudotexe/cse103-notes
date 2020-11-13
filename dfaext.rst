@@ -84,7 +84,8 @@ equivalence classes in that language):
     :width: 350
 
 
-**Ex.**
+Ex 1
+^^^^
 
 Prove that :math:`L = \{ 0^n 1^n | n \geq 1 \}` is not regular using M-N:
 
@@ -95,7 +96,8 @@ Prove that :math:`L = \{ 0^n 1^n | n \geq 1 \}` is not regular using M-N:
     - so all items in this set are in different equivalence classes of :math:`R_L`
 - So the language is not regular.
 
-**Ex.**
+Ex 2
+^^^^
 
 Prove that :math:`L = \{ w \in \Sigma^* | \text{w is a palindrome} \}` is not regular using M-N:
 
@@ -106,7 +108,8 @@ Prove that :math:`L = \{ w \in \Sigma^* | \text{w is a palindrome} \}` is not re
     - so all items in this set are in different equivalence classes of :math:`R_L`
 - So the language is not regular.
 
-**Ex.**
+Ex 3
+^^^^
 
 :math:`L = \{ ww | w \in \Sigma^* \}`
 
@@ -120,7 +123,8 @@ Prove that :math:`L = \{ w \in \Sigma^* | \text{w is a palindrome} \}` is not re
     - so the index of :math:`R_L` is infinite
 - So the language is not regular.
 
-**Ex.**
+Ex 4
+^^^^
 
 :math:`L = \{ 1^{m!} | m \geq 1 \}`
 
@@ -142,7 +146,8 @@ Prove that :math:`L = \{ w \in \Sigma^* | \text{w is a palindrome} \}` is not re
     - so the index of :math:`R_L` is infinite
 - so the language is not regular.
 
-**Ex.**
+Ex 5
+^^^^
 
 :math:`L = \{ a^ib^jk^c | i,j,k \geq 0 \land i = 1 \implies j = k \}`
 
@@ -155,10 +160,108 @@ This language cannot be proven irregular using the pumping lemma thm.
     - :math:`ab^jc^i \notin L`
 - so the index of :math:`R_L` is infinite and L is not regular.
 
-**Ex.**
+Ex 6
+^^^^
 
 :math:`L = \{ 0^p | p \text{ is prime}\}`
 
 .. image:: _static/dfaext1.png
-    :width: 350
+    :width: 500
 
+.. image:: _static/dfaext2.png
+    :width: 500
+
+Ex 7
+^^^^
+
+:math:`L = \{1^n | n \text{ is even}\}` is regular. Show that the index of :math:`R_L` is finite.
+
+.. note::
+    Intuitively, the 2 equivalence classes of :math:`R_L` are the even lengths and the odd lengths.
+
+- All strings in :math:`\Sigma^*` fall into one of two equivalence classes of :math:`R_L`:
+- Case 1: Examine :math:`1^jz, 1^kz` where *j* and *k* are even.
+    - Case 1: *z* is of even length.
+        - The lengths of both strings will be even (sum of 2 even numbers is an even number)
+        - so both strings will be in the language.
+    - Case 2: *z* is of odd length.
+        - The lengths of both strings will be odd (sum of even and odd numbers is an odd number)
+        - so both strings will not be in the language.
+- Case 2: Examine :math:`1^jz, 1^kz` where *j* and *k* are odd.
+    - Case 1: *z* is of even length.
+        - The lengths of both strings will be odd (sum of even and odd numbers is an odd number)
+        - so both strings will not be in the language.
+    - Case 2: *z* is of odd length.
+        - The lengths of both strings will be even (sum of 2 odd numbers is an even number)
+        - so both strings will be in the language.
+- The index of :math:`R_L` is finite, so the language is regular.
+
+Additional Comments
+^^^^^^^^^^^^^^^^^^^
+Each equivalence class of :math:`R_L` corresponds to a state in the minimal DFA of the language.
+
+Ex: :math:`L = \{w | w \text{ has an even number of 0s and 1s}\}`
+
+.. image:: _static/dfaext3.png
+    :width: 500
+
+Two-Way DFAs
+------------
+*aka 2dfa*
+
+:math:`M = (Q, \Sigma, \vdash, \dashv, \delta, s, t, r)`
+
+- :math:`Q` = a finite set of states
+- :math:`\Sigma` = a finite set (input alphabet)
+- :math:`\vdash` = left end marker (:math:`\notin \Sigma`)
+- :math:`\dashv` = right end marker (:math:`\notin \Sigma`)
+- :math:`\delta: Q \times (\Sigma \cup \{\vdash, \dashv \}) \to (Q \times \{L, R\})`
+- :math:`s \in Q` = start state
+- :math:`t \in Q` = unique accept state
+- :math:`r \in Q` = unique reject state
+
+This makes it possible to accept or reject an input without reading the whole thing, or loop forever.
+
+Note: there are some safety mechanisms in place:
+
+- :math:`\forall q \in Q`, you cannot go off the end of the tape:
+    - :math:`\delta(q, \vdash) = (u, R)` for some :math:`u \in Q`
+    - :math:`\delta(q, \dashv) = (u, L)` for some :math:`u \in Q`
+- :math:`\forall b \in \Sigma \cup \{ \vdash \}`,
+    - :math:`\delta(t, b) = (t, R)`
+    - :math:`\delta(t, \dashv) = (t, L)`
+    - :math:`\delta(r, b) = (t, R)`
+    - :math:`\delta(r, \dashv) = (t, L)`
+    - once in *t* or *r*, keep moving right.
+
+Example
+^^^^^^^
+
+- Scan LtR, counting a's, then RtL counting b's.
+- Reject early if encounter right end with invalid num of a's.
+- Otherwise make reject/accept decision at left end given number of b's.
+
+.. image:: _static/dfaext6.png
+    :width: 500
+
+Additional Comments
+^^^^^^^^^^^^^^^^^^^
+
+Given some boundary on the tape, assuming you cross that boundary at some point again, the state you are in when
+you cross the boundary going the opposite direction depends only on tape behind the boundary and the state you crossed
+in.
+
+.. image:: _static/dfaext7.png
+    :width: 500
+
+There is also a special symbol for never crossing the boundary again:
+
+.. warning::
+    There is a missing image here. Please open a pull request if you have the notes that go here.
+
+This has a relationship with the Myhill-Nerode relationship:
+
+.. image:: _static/dfaext9.png
+    :width: 500
+
+Which proves that this machine has an equal amount of power as a DFA!

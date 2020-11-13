@@ -18,6 +18,7 @@ Welcome to cse103-notes's documentation!
    regex
    pumpinglemma
    dfaext
+   cfg
 
 
 Indices and tables
