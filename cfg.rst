@@ -187,6 +187,147 @@ Since the linear constructions generate the regular languages, they must have an
     V3 := 0 V4 | 1 V2
     V4 := 0 V3 | 1 V1
 
+Closure
+-------
+
+Given:
+
+- :math:`G_1 = (N_1, \Sigma, P_1, S_1)`
+- :math:`G_2 = (N_2, \Sigma, P_2, S_2)`
+
+Union
+^^^^^
+
+- :math:`G = (N, \Sigma, P, S)`
+- :math:`N = N_1 \cup N_2 \cup \{S\}`
+- :math:`P = P_1 \cup P_2 \cup \{S \to S_1, S \to S_2\}`
+- :math:`S = S`
+
+Concatenation
+^^^^^^^^^^^^^
+- :math:`G = (N, \Sigma, P, S)`
+- :math:`N = N_1 \cup N_2 \cup \{S\}`
+- :math:`P = P_1 \cup P_2 \cup \{S \to S_1 S_2\}`
+- :math:`S = S`
+
+Kleene Star
+^^^^^^^^^^^
+(Examining :math:`G_1^*`)
+
+- :math:`G = (N, \Sigma, P, S)`
+- :math:`N = N_1 \cup \{S\}`
+- :math:`P = P_1 \cup \{S \to \epsilon, S \to S_1S\}`
+- :math:`S = S`
+
+Intersection (Not)
+^^^^^^^^^^^^^^^^^^
+CFLs are *not* closed under intersection! Counterexample:
+
+- :math:`a^nb^nc^n` is not a CFL
+- :math:`\{a^mb^mc^n | m,n \geq 0\}` is a CFL
+    - Pf: See CFG 1 below
+- :math:`\{a^mb^nc^n | m,n \geq 0\}` is a CFL
+    - Pf: See CFG 2 below
+- :math:`\{a^mb^nc^n | m,n \geq 0\} \cap \{a^mb^mc^n | m,n \geq 0\} = a^nb^nc^n` which is not a CFL.
+
+.. code-block:: text
+
+    CFG 1
+    S := A B
+    A := a A b | e
+    B := c B   | e
+
+    CFG 2
+    S := A B
+    A := a A   | e
+    B := b B c | e
+
 Chomsky Normal Form
-^^^^^^^^^^^^^^^^^^^
-A special form where the only rules are ``A := Bb | a``. Can express any CFL (except it won't contain the empty string).
+-------------------
+A special form where all rules are of the form ``A := BC | a`` (where :math:`A, B, C \in N` and :math:`a \in \Sigma`).
+
+**Thm**. For any CFG G, there is a CFG G' in CNF s.t. :math:`L(G')=L(G) - \epsilon`.
+
+Converting to CNF
+^^^^^^^^^^^^^^^^^
+
+Step 1: Get rid of epsilon-rules and unit-rules
+
+.. image:: _static/cfg2.png
+    :width: 750
+
+Step 2: Make everything either go to one terminal or multiple nonterminals
+
+.. image:: _static/cfg3.png
+    :width: 750
+
+Step 3: Make every run of 2+ nonterminals just 2 nonterminals.
+
+.. image:: _static/cfg4.png
+    :width: 750
+
+**Ex**.
+
+:math:`L = \{a^nb^n | n \geq 1\}`
+
+.. code-block:: text
+
+    0.
+    S := a S b | e
+
+    1. add S := a b
+    S := a S b | e | a b
+
+    2. Remove e-productions
+    S := a S b | a b
+
+    3. Give each terminal a nonterminal
+    S := a S b | a b
+    A := a
+    B := b
+
+    4. Replace nonterminals on the right
+    S := A S B | A B
+    A := a
+    B := b
+
+    5. Replace >2 nonterminals
+    S  := A S2 | A B
+    S2 := S B
+    A  := a
+    B  := b
+
+**Ex**.
+
+Balanced parentheses.
+
+.. code-block:: text
+
+    0.
+    S := ( S ) | S S | e
+
+    1. add S := ( ) and remove epsilon
+    S := ( S ) | S S | ( )
+
+    2. make each terminal a nonterminal
+    S := A S B | S S | A B
+    A := (
+    B := )
+
+    3. Replace runs of >2 nonterminals
+    S  := A S2 | S S | A B
+    S2 := S B
+    A  := (
+    B  := )
+
+A more complex example can be found
+`on Canvas <https://canvas.ucsc.edu/courses/36492/files/folder/Handouts?preview=2700149>`_.
+
+Pumping Lemma for CFLs
+----------------------
+For every CFL L, there exists a :math:`p \geq 0` s.t. every :math:`z \in L` of length :math:`\geq p` can be
+divided into *five* substrings :math:`z = uvwxy` such that :math:`vx \neq \epsilon` and :math:`|vwx| \leq p`,
+and for all :math:`i \geq 0`, :math:`uv^iwx^iy \in L`.
+
+.. image:: _static/cfg5.png
+    :width: 500
