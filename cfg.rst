@@ -329,5 +329,130 @@ For every CFL L, there exists a :math:`p \geq 0` s.t. every :math:`z \in L` of l
 divided into *five* substrings :math:`z = uvwxy` such that :math:`vx \neq \epsilon` and :math:`|vwx| \leq p`,
 and for all :math:`i \geq 0`, :math:`uv^iwx^iy \in L`.
 
-.. image:: _static/cfg5.png
-    :width: 500
+In English: every sufficiently long string can be divided into 5 segements such that the middle 3 are not too
+long, and the second and fourth are both not empty, and no matter how much you pump the 2nd and 4th (simultaneously),
+the string stays in the language.
+
+.. cfg5
+
+We can use this to prove that a language is not a CFL. We just need to show:
+
+- for all :math:`p \geq 0`
+- there exists :math:`s \in L` of length at least :math:`p`
+- such that for all :math:`uvwxy` with :math:`z = uvwxy, vx\neq \epsilon, |vwx| \leq p`
+- there exists :math:`i` 
+- such that :math:`uv^iwx^iy \notin L`.
+
+We can use the adversary game again.
+
+Ex 1
+^^^^
+
+:math:`L = \{a^nb^nc^n | n \geq 0\}`
+
+- :math:`p`
+- :math:`s = a^pb^pc^p`, :math:`s \in L, |s| = 3p > p`.
+- :math:`uvwxy = a^pb^pc^p`, :math:`|vwx| \leq p, vx \neq \epsilon`
+- Let :math:`i=2`
+- Case 1: :math:`vwx` is entirely contained within :math:`a^p, b^p, \text{ or } c^p`.
+    - Either *v*, *x*, or both must be made entirely of a's, b's, or c's
+    - Pumping that fragment results in more of that letter than the others, and the resulting string is not in the language
+- Case 2: Either *v* or *x* falls on a boundary between letters
+    - Pumping that fragment would result in a mixture of letters, and the resulting string is not in the language
+- Case 3: *v* and *x* are made of two different letters (*w* falls on the boundary)
+    - Pumping those fragments would result in less of the letter that did not contain *v* or *x*, and the resulting string is not in the language.
+
+.. image:: _static/cfg6.png
+    :width: 350
+
+Ex 2
+^^^^
+
+:math:`L = \{a^nb^na^n | n \geq 0\}`
+
+- :math:`p`
+- :math:`s = a^pb^pa^p`: :math:`s \in L, |s| = 3p > p`.
+- :math:`uvwxy = a^pb^pa^p`: :math:`|vwx| \leq p, vx \neq \epsilon`
+- Let :math:`i=2`
+- Case 1: :math:`vwx` is entirely contained within :math:`a^p` or :math:`b^p`
+    - Either *v*, *x*, or both must be made entirely of a's or b's
+    - Pumping that fragment results in more of that letter than the others, and the resulting string is not in the language
+- Case 2: Either *v* or *x* falls on a boundary between letters
+    - So *v* or *x* contains both a's and b's
+    - Pumping that fragment would result in a mixture of letters, and the resulting string is not in the language
+- Case 3: *v* and *x* are made of two different letters (*w* falls on the boundary)
+    - Pumping those fragments would result in less a's in the section that did not contain *v* or *x*, and the resulting string is not in the language.
+
+Ex 3
+^^^^
+
+:math:`\Sigma = \{0, 1\}; L = \{ww | w \in \Sigma^* \}`
+
+- :math:`p`
+- :math:`s = 0^p1^p0^p1^p`: :math:`s \in L, |s| = 4p > p`.
+- :math:`uvwxy = 0^p1^p0^p1^p`: :math:`|vwx| \leq p, vx \neq \epsilon`
+- Case 1: :math:`vwx` is entirely on one half of the string
+    - Let :math:`i=2`
+    - By pumping, at least one symbol on the boundary is pushed over the boundary to the other half
+        - Which means that either the second half would start with 1 (but the first starts with 0!)
+        - Or the first half ends with 0 (but the second ends with 1!)
+    - the resulting string is not in the language.
+- Case 2: *v* and *x* are on opposite halves (*w* is on the boundary)
+    - let :math:`i=0`
+    - The new string becomes :math:`0^p1^a0^b1^p`
+    - Both *a* and *b* cannot both be *p*, since either :math:`a < p` or :math:`b < p`
+    - So the resulting string is not in the language
+
+(...what about the boundary?)
+
+Ex 4
+^^^^
+(same language as ex 3)
+
+:math:`\Sigma = \{a, b\}; D = \{ww | w \in \Sigma^* \}`
+
+Important note: CFL :math:`\cap` CFL is not necessarily a CFL, but CFL :math:`\cap` regular language is
+
+Consider :math:`D' = D \cap L(a^*b^*a^*b^*) = \{a^nb^ma^nb^m | n, m \geq 0 \}`
+
+- Assume *D* is a CFL
+- then *D'* must be (since the intersection of a CFL and a regular language is a CFL)
+- however *D'* is not a CFL:
+- :math:`p`
+- :math:`s = a^p b^p a^p b^p`: :math:`s \in L, |s| = 4p > p`.
+- :math:`uvwxy = a^p b^p a^p b^p`: :math:`|vwx| \leq p, vx \neq \epsilon`
+- Let :math:`i=2`
+- Case 1: *v* or *x* crosses a boundary between a's and b's
+    - By pumping this fragment, the resulting string introduces a mixture
+    - no longer of the form :math:`a^nb^ma^nb^m`
+- Case 2: :math:`vwx` is entirely contained within one section of a's or b's
+    - By pumping this fragment, this changes the number of a's or b's on only one side
+    - so the string is not longer in the language
+- Case 3: *v* and *x* are made entirely of different letters (*w* contains the boundary)
+    - Case 1: the boundary is the middle of the left section
+        - By pumping this fragment, this changes the number of a's, b's, or both on only one side
+        - so the string is not longer in the language
+    - Case 2: the boundary is the center
+        - By pumping this fragment, this changes the number of b's on the left but not the right, a's on the right but not the left, or both
+        - so the string is not longer in the language
+- so *D* is not a CFL.
+
+Ex 5
+^^^^
+
+:math:`\Sigma = \{a, b\}; L = \{x \in \Sigma^* | x \text{ is not of form } ww, w \in \Sigma^* \}`
+
+L *is* a CFL!
+
+- Odd length strings are certainly not of this form
+- what about even length ones? let :math:`L = a | b`, they must be the form :math:`L^n a L^m L^n b L^m`
+    - the (n+1)th symbol on the left is different from the (n+1)th symbol on the right
+    - so at least 1 symbol must not match
+    - note: :math:`L^n a L^m L^n b L^m = L^n a L^{m+n} b L^m = L^n a L^n L^m b L^m`
+
+.. code-block:: text
+
+    S := A | B | A B | B A
+    A := L A L | a          # odd length strings with a in middle
+    B := L B L | b          # odd length strings with b in middle
+    L := a | b
