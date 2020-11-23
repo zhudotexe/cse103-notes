@@ -19,6 +19,7 @@ Welcome to cse103-notes's documentation!
    pumpinglemma
    dfaext
    cfg
+   pda
 
 
 Indices and tables

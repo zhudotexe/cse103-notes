@@ -345,6 +345,53 @@ We can use this to prove that a language is not a CFL. We just need to show:
 
 We can use the adversary game again.
 
+Proof
+^^^^^
+
+For any CFG, you can make a Chomsky derivation tree:
+
+.. image:: _static/cfg7.png
+    :width: 500
+
+Each level may only double the number of nodes at most, since CNF only allows each nonterminal to go to 2 nodes.
+
+.. image:: _static/cfg8.png
+    :width: 500
+
+For a derivation tree with :math:`2^n` nodes on the bottom, the shortest path to the top must be at least :math:`n+1`
+long.
+
+.. image:: _static/cfg9.png
+    :width: 500
+
+So for a grammar with :math:`n` variables, the shortest path to the top must be at least :math:`n+1` long.
+
+.. image:: _static/cfg10.png
+    :width: 500
+
+Which means, by the pigeonhole principle, at least 1 variable must be repeated along that path - you can
+pump along the first repeated variable:
+
+.. image:: _static/cfg11.png
+    :width: 500
+
+In this diagram, pumping *v* and *x* is roughly equivalent to removing the *w* portion and replacing its child with
+another of itself.
+
+.. image:: _static/cfg12.png
+    :width: 500
+
+You can repeat this process to keep pumping. Alternatively, you can pump down by removing the *v* and *x*
+portions:
+
+.. image:: _static/cfg13.png
+    :width: 350
+
+If either *v* or *x* is empty, it looks like this:
+
+.. image:: _static/cfg14.png
+    :width: 350
+
 Ex 1
 ^^^^
 
