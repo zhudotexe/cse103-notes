@@ -59,3 +59,83 @@ The complement of :math:`L = \{ w w | w \in \{0, 1\}^* \}` (see CFG ex. 5)
 .. image:: _static/pda5.png
     :width: 750
 
+CFGs
+----
+You can make a PDA for any CFG using 3 states:
+
+.. code-block:: text
+
+    Place $ and start in stack
+    Do repeatedly:
+        If var on top:
+            Pop it and push right side of rule (*)
+        If terminal on top:
+            If it matches the stack, advance read head
+            If not, fail
+        If $ on top:
+            Accept
+
+.. note::
+    ``*``: This means we allow pushing entire strings onto the stack. This can be done character-wise, but it's
+    faster this way.
+
+Ex 1
+^^^^
+
+.. image:: _static/pda6.png
+    :width: 500
+
+
+Ex 2
+^^^^
+
+.. image:: _static/pda7.png
+    :width: 500
+
+CKY Algorithm
+-------------
+Given a CFG, how do you determine whether :math:`x \in L(G)`?
+
+Examine the substrings (grammar should be in CNF):
+
+Ex 1
+^^^^
+
+.. code-block:: text
+
+    S := AB | BA | SS | AC | BD
+    A := a
+    B := b
+    C := SB
+    D := SA
+
+Is ``aabbab`` in the language? The table represents ways to get from top to right.
+Fill in the diagonals (longest first):
+
+.. code-block:: text
+
+    |a|a|b|b|a|b|
+    0 1 2 3 4 5 6
+
+    +-----+-----+-----+-----+-----+-----+---+
+    | 0   |     |     |     |     |     |   |
+    +-----+-----+-----+-----+-----+-----+---+
+    | {A} | 1   |     |     |     |     |   |
+    +-----+-----+-----+-----+-----+-----+---+
+    | {}  | {A} | 2   |     |     |     |   |
+    +-----+-----+-----+-----+-----+-----+---+
+    | {}  | {S} | {B} | 3   |     |     |   |
+    +-----+-----+-----+-----+-----+-----+---+
+    | {S} | {C} | {}  | {B} | 4   |     |   |
+    +-----+-----+-----+-----+-----+-----+---+
+    | {D} | {S} | {}  | {S} | {A} | 5   |   |
+    +-----+-----+-----+-----+-----+-----+---+
+    | {S} | {C} | {}  | {C} | {S} | {B} | 6 |
+    +-----+-----+-----+-----+-----+-----+---+
+
+Since it is possible to get from 0 to 6 using the start variable, the string is in the language.
+
+
+
+
+
