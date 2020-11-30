@@ -20,6 +20,7 @@ Welcome to cse103-notes's documentation!
    dfaext
    cfg
    pda
+   parsing
 
 
 Indices and tables
