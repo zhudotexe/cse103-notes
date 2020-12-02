@@ -21,6 +21,7 @@ Welcome to cse103-notes's documentation!
    cfg
    pda
    parsing
+   tm
 
 
 Indices and tables
