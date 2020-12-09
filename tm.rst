@@ -328,6 +328,19 @@ Proof
 - So N is different on at least one given string for every :math:`M_x` in the table above
 - So we have constructed an impossible machine, since it is not in the list of all possible machines above, so K cannot exist
 
+Example
+"""""""
+.. code-block:: py
+
+    m = 999
+    while m > 1:
+        if m % 2 == 0:
+            m = m // 2
+        else:
+            m = 3 * m + 1
+
+Is there any value of ``m`` such that this loop never halts? We don't know!
+
 Reduction
 ---------
 .. image:: _static/tm18.png
@@ -342,3 +355,58 @@ Ex. Halting Problem v. Membership Problem
 - Right side: reducing the membership problem to the halting problem
 
 You can use this to show that the membership problem is not solvable.
+
+Rice's Theorem
+--------------
+
+.. image:: _static/tm20.png
+    :width: 500
+
+For each of these, there is an algorithm that can solve these problems for finite automata:
+
+.. image:: _static/tm21.png
+    :width: 500
+
+However, these are not solvable for Turing Machines.
+
+Definitions
+^^^^^^^^^^^
+
+- **Recursively Enumerable**: if :math:`S = L(M)` for some TM (i.e. TM doesn't loop)
+- **Decidable**: a property is decidable if the set of strings with property is recursive
+    - i.e. a total TM accepts strings with prop and rejects without prop
+
+How do we find the set of all strings a TM accepts?
+
+.. image:: _static/tm22.png
+    :width: 500
+
+Thm
+^^^
+Any non-trivial property of a recursively enumerable set is undecidable.
+
+Proof
+^^^^^
+
+- Let *p* be a non-trivial property of a recursively enumerable set such that:
+    - :math:`P(A)` = T or F
+    - :math:`P(\emptyset)` = F
+- *p* is non-trivial :math:`\implies \exists A` a recursively enumerable set that has *p*
+- let *K* be a TM that accepts A
+- Let M and M' be defined as such:
+
+.. image:: _static/tm23.png
+    :width: 500
+
+- above: M halts on *x* :math:`\implies L(M') = A`
+- M does not halt on *x* :math:`\implies L(M') = \emptyset`
+- :math:`L(M') = A \implies P(L(M')) = P(A) = T`
+- :math:`L(M') = \emptyset \implies P(L(M')) = P(\emptyset) = F`
+- Reversing this, if we can decide the property, then we can tell if M halts on x.
+- The halting problem is not solvable, so this problem is not solvable.
+
+Conclusion
+^^^^^^^^^^
+:math:`\text{regular languages} \subset \text{CFLs} \subset \text{recursive} \subset \text{RE} \subset \Sigma^*`
+
+There are a lot of languages that are not expressible by a TM! There are infinite subsets of :math:`\Sigma^*`!
